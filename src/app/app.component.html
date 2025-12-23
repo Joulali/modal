@@ -1,33 +1,38 @@
-<app-modal size="extra-large" type="popup" id="model">
-  <div class="modal_size">
-    <button
-      class="modal_close"
-      (click)="closeModal('model')"
-      (keyup.enter)="closeModal('model')"
-      tabindex="0"
-    >
-      close
-    </button>
+<!-- Popup Modal -->
+<app-modal id="popup-modal" type="popup" size="large">
+  <button
+    type="button"
+    class="btn btn-secondary"
+    (click)="closeModal('popup-modal')"
+  >
+    Cancel
+  </button>
+</app-modal>
 
-    <h1>Modal</h1>
+<!-- Side Left Modal -->
+<app-modal id="sidebar-left" type="side-left">
+  <button
+    type="button"
+    class="btn btn-secondary"
+    (click)="closeModal('sidebar-left')"
+  >
+    Cancel
+  </button>
+</app-modal>
 
-    <form
-      autocomplete="off"
-      role="form"
-      aria-labelledby="model-cause-form-title"
-    >
-      <button type="submit" class="btn btn-primary">Save</button>
-      <button
-        type="button"
-        class="btn btn-secondary"
-        (click)="closeModal('model')"
-      >
-        Cancel
-      </button>
-    </form>
-  </div>
+<!-- Side Right Modal -->
+<app-modal id="sidebar-right" type="side-right">
+  <button
+    type="button"
+    class="btn btn-secondary"
+    (click)="closeModal('sidebar-right')"
+  >
+    Cancel
+  </button>
 </app-modal>
 
 <h1>Modal</h1>
 
-<button (click)="openModal('model')">Add</button>
+<button (click)="openModal('popup-modal')">popup</button>
+<button (click)="openModal('sidebar-left')">side-left</button>
+<button (click)="openModal('sidebar-right')">side-right</button>

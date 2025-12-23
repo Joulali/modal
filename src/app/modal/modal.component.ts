@@ -78,7 +78,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   onAnimationDone(event: AnimationEvent): void {
-    if (this.isClosing && event.toState === 'hide') {
+    if (this.isClosing && event.toState.includes('hide')) {
       this.element.style.display = 'none';
       this.isClosing = false;
     }
