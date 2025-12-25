@@ -130,13 +130,13 @@ $mobile-breakpoint: 576px;
   max-height: 90vh;
   overflow: hidden;
 
-  /* Mobile behavior */
-  @include modal-fullscreen-mobile;
-
   /* Default animation state */
   opacity: 0;
   transform: translate(-50%, -48%);
   transition: opacity 0.25s ease, transform 0.25s ease;
+
+  /* Mobile behavior - moved below declarations to avoid deprecation warning */
+  @include modal-fullscreen-mobile;
 }
 
 /* Active (visible) modal */
