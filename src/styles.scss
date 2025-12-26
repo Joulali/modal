@@ -25,9 +25,7 @@ $z-overlay: 900;
 
 /* Visual tokens */
 $radius-default: 12px;
-$shadow-default:
-  0 10px 25px rgba(0, 0, 0, 0.15),
-  0 4px 10px rgba(0, 0, 0, 0.08);
+$shadow-default: 0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0, 0, 0, 0.08);
 
 /* Colors */
 $overlay-bg: rgba(17, 24, 39, 0.55);
@@ -135,7 +133,7 @@ $mobile-breakpoint: 576px;
   transform: translate(-50%, -48%);
   transition: opacity 0.25s ease, transform 0.25s ease;
 
-  /* Mobile behavior - moved below declarations to avoid deprecation warning */
+  /* Mobile behavior */
   @include modal-fullscreen-mobile;
 }
 
@@ -210,7 +208,7 @@ $mobile-breakpoint: 576px;
 }
 
 /* =========================================================
-   SIZE VARIANTS
+   CENTER MODAL SIZE VARIANTS
 ========================================================= */
 
 .pop-modal.small {
@@ -232,10 +230,25 @@ $mobile-breakpoint: 576px;
 .pop-modal.left,
 .pop-modal.right {
   @include modal-drawer;
-  @include modal-width(280px, 80vw, 480px);
-
   display: flex;
   flex-direction: column;
+}
+
+/* Drawer widths controlled by size (popup behavior) */
+
+.pop-modal.left.small,
+.pop-modal.right.small {
+  @include modal-width(260px, 60vw, 40vw); // 360px
+}
+
+.pop-modal.left.large,
+.pop-modal.right.large {
+  @include modal-width(320px, 70vw, 50vw); // 480px
+}
+
+.pop-modal.left.extra-large,
+.pop-modal.right.extra-large {
+  @include modal-width(420px, 85vw, 60vw); // 640px
 }
 
 /* Left drawer */
