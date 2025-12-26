@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ModalService } from './modal/modal.service';
 import { ModalComponent } from './modal/modal.component';
+import { ThemeService } from './theme.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import { ModalComponent } from './modal/modal.component';
 })
 export class AppComponent {
   private modalService = inject(ModalService);
+  private themeService = inject(ThemeService);
 
   openModal(modal_id: string): void {
     this.modalService.open(modal_id);
@@ -18,5 +20,9 @@ export class AppComponent {
 
   closeModal(id: string): void {
     this.modalService.close(id);
+  }
+
+  toggleTheme(): void {
+    this.themeService.toggle();
   }
 }
