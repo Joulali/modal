@@ -1,19 +1,4 @@
-/* =========================================================
-   RESET & GLOBALS
-========================================================= */
-
-/* Box sizing reset */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-/* Hide modal component wrapper by default
-   (modal is appended to body dynamically) */
-app-modal {
-  display: none;
-}
+@use "./styles/main.scss";
 
 /* =========================================================
    VARIABLES
@@ -27,16 +12,60 @@ $z-overlay: 900;
 $radius-default: 12px;
 $shadow-default: 0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0, 0, 0, 0.08);
 
-/* Colors */
-$overlay-bg: rgba(17, 24, 39, 0.55);
-$modal-bg: #ffffff;
-$header-bg: #f9fafb;
-$border-color: #e5e7eb;
-$text-primary: #111827;
-$text-muted: #6b7280;
-
 /* Responsive breakpoint */
 $mobile-breakpoint: 576px;
+
+/* =========================================================
+   RESET & GLOBALS
+========================================================= */
+
+/* Box sizing reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Apply CSS Custom Properties */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Global transitions for theme changes */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-color);
+}
+
+/* Hide modal component wrapper by default
+   (modal is appended to body dynamically) */
+app-modal {
+  display: none;
+}
 
 /* =========================================================
    MIXINS
@@ -79,6 +108,24 @@ $mobile-breakpoint: 576px;
   }
 }
 
+/* Drawer size variants (left / right modals) */
+@mixin drawer-sizes {
+  &.small {
+    width: 360px;
+    max-width: 40vw;
+  }
+
+  &.large {
+    width: 480px;
+    max-width: 50vw;
+  }
+
+  &.extra-large {
+    width: 640px;
+    max-width: 60vw;
+  }
+}
+
 /* =========================================================
    MODAL OVERLAY (BACKDROP)
 ========================================================= */
@@ -86,7 +133,12 @@ $mobile-breakpoint: 576px;
 .pop-modal-background {
   position: fixed;
   inset: 0;
-  background: $overlay-bg;
+  background: rgba(
+    0,
+    0,
+    0,
+    0.55
+  ); /* Using rgba instead of variable for consistency */
   z-index: $z-overlay;
 
   /* Hidden by default */
@@ -111,7 +163,7 @@ $mobile-breakpoint: 576px;
 .pop-modal {
   position: fixed;
   z-index: $z-modal;
-  background: $modal-bg;
+  background: var(--surface-color); /* Using theme variable */
   border-radius: $radius-default;
   box-shadow: $shadow-default;
 
@@ -149,8 +201,8 @@ $mobile-breakpoint: 576px;
 
 .pop-modal-header {
   padding: 16px 20px;
-  background: $header-bg;
-  border-bottom: 1px solid $border-color;
+  background: var(--surface-color); /* Using theme variable */
+  border-bottom: 1px solid var(--border-color); /* Using theme variable */
 
   display: flex;
   align-items: center;
@@ -160,7 +212,7 @@ $mobile-breakpoint: 576px;
     margin: 0;
     font-size: 18px;
     font-weight: 600;
-    color: $text-primary;
+    color: var(--text-color); /* Using theme variable */
   }
 }
 
@@ -171,11 +223,11 @@ $mobile-breakpoint: 576px;
   font-size: 24px;
   line-height: 1;
   cursor: pointer;
-  color: $text-muted;
+  color: var(--text-secondary); /* Using theme variable */
   transition: color 0.2s ease;
 
   &:hover {
-    color: $text-primary;
+    color: var(--text-color); /* Using theme variable */
   }
 }
 
@@ -186,7 +238,7 @@ $mobile-breakpoint: 576px;
 .pop-modal-body {
   padding: 20px;
   flex: 1;
-  color: #374151;
+  color: var(--text-color); /* Using theme variable */
   font-size: 14px;
   line-height: 1.6;
 
@@ -199,8 +251,8 @@ $mobile-breakpoint: 576px;
 
 .pop-modal-footer {
   padding: 14px 20px;
-  background: $header-bg;
-  border-top: 1px solid $border-color;
+  background: var(--surface-color); /* Using theme variable */
+  border-top: 1px solid var(--border-color); /* Using theme variable */
 
   display: flex;
   justify-content: flex-end;
@@ -241,70 +293,35 @@ $mobile-breakpoint: 576px;
   }
 }
 
+/*  &.default {
+       width: 420px;
+       max-width: 45vw;
+     } */
+
 /* Left drawer */
 .pop-modal.left {
   left: 0;
   right: auto;
+  transform: translateX(-100%);
 
   /* Desktop sizes */
   @media (min-width: calc(#{$mobile-breakpoint} + 1px)) {
-    &.small {
-      width: 360px;
-      max-width: 40vw;
-    }
-
-    &.large {
-      width: 480px;
-      max-width: 50vw;
-    }
-
-    &.extra-large {
-      width: 640px;
-      max-width: 60vw;
-    }
-
-    &.default {
-      width: 420px;
-      max-width: 45vw;
-    }
-
+    @include drawer-sizes;
     border-radius: 0 $radius-default $radius-default 0;
   }
-
-  transform: translateX(-100%);
 }
 
 /* Right drawer */
 .pop-modal.right {
   right: 0;
   left: auto;
+  transform: translateX(100%);
 
   /* Desktop sizes */
   @media (min-width: calc(#{$mobile-breakpoint} + 1px)) {
-    &.small {
-      width: 360px;
-      max-width: 40vw;
-    }
-
-    &.large {
-      width: 480px;
-      max-width: 50vw;
-    }
-
-    &.extra-large {
-      width: 640px;
-      max-width: 60vw;
-    }
-
-    &.default {
-      width: 420px;
-      max-width: 45vw;
-    }
-
+    @include drawer-sizes;
     border-radius: $radius-default 0 0 $radius-default;
   }
-
-  transform: translateX(100%);
 }
 
 /* Drawer active state */
@@ -326,14 +343,22 @@ $mobile-breakpoint: 576px;
   border: none;
   font-size: 14px;
   cursor: pointer;
+  background: var(--button-bg); /* Using theme variable */
+  color: var(--button-color); /* Using theme variable */
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background: var(--primary-color); /* Using theme variable */
+    color: white;
+  }
 }
 
 .btn-secondary {
-  background: #e5e7eb;
-  color: $text-primary;
+  background: var(--surface-color); /* Using theme variable */
+  color: var(--text-color); /* Using theme variable */
 
   &:hover {
-    background: #d1d5db;
+    background: var(--border-color); /* Using theme variable */
   }
 }
 
@@ -407,3 +432,6 @@ $mobile-breakpoint: 576px;
       opacity 0.3s ease;
   }
 }
+
+/* Theme-specific variables should be defined in your theme CSS files,
+   not in this SCSS file. The variables are already referenced above. */
