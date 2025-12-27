@@ -9,19 +9,17 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [
-    
-    SidebarComponent,
-    MainContentComponent,
-    NavbarComponent,
-  ],
+  imports: [SidebarComponent, MainContentComponent, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-
-
   isSidebarCollapsed = false;
+
+  // Handle sidebar collapse event from sidebar component
+  onSidebarCollapsed(isCollapsed: boolean) {
+    this.isSidebarCollapsed = isCollapsed;
+  }
 
   toggleMobileSidebar() {
     // This method will be called from navbar to toggle mobile sidebar

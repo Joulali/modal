@@ -1,7 +1,6 @@
-
-
 <div class="container">
-  <app-sidebar></app-sidebar>
+  <!-- Add event binding for sidebar collapse -->
+  <app-sidebar (sidebarCollapsed)="onSidebarCollapsed($event)"></app-sidebar>
 
   <main class="main-content" [class.expanded]="isSidebarCollapsed">
     <app-navbar (toggleSidebar)="toggleMobileSidebar()"></app-navbar>
