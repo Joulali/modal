@@ -5,8 +5,9 @@
   padding: 30px;
   background-color: var(--background-color);
   color: var(--text-color);
-  min-height: calc(100vh - var(--navbar-height)); /* Subtract navbar height */
-  overflow-y: auto; /* Enable scrolling if content overflows */
+  min-height: calc(100vh - var(--navbar-height));
+  overflow-y: auto;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .content-header {
@@ -18,11 +19,13 @@
   font-weight: 700;
   color: var(--text-color);
   margin-bottom: 10px;
+  transition: color 0.3s ease;
 }
 
 .content-subtitle {
   color: var(--text-secondary);
   font-size: 1rem;
+  transition: color 0.3s ease;
 }
 
 /* Card */
@@ -32,6 +35,8 @@
   padding: 30px;
   box-shadow: 0 4px 12px var(--shadow-color);
   margin-bottom: 30px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease,
+    border-color 0.3s ease;
 }
 
 /* Form Styles */
@@ -47,6 +52,7 @@
   margin-bottom: 25px;
   padding-bottom: 15px;
   border-bottom: 1px solid var(--border-color);
+  transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .form-group {
@@ -69,6 +75,7 @@
   margin-bottom: 8px;
   font-weight: 500;
   color: var(--text-color);
+  transition: color 0.3s ease;
 }
 
 .required::after {
@@ -85,10 +92,12 @@
   font-size: 1rem;
   background-color: var(--surface-color);
   color: var(--text-color);
-  transition: border 0.2s, box-shadow 0.2s;
+  transition: border 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease,
+    color 0.3s ease, border-color 0.3s ease;
 
   &::placeholder {
     color: var(--text-secondary);
+    transition: color 0.3s ease;
   }
 
   &:focus {
@@ -121,6 +130,12 @@ textarea.form-control {
     width: 18px;
     height: 18px;
     accent-color: var(--primary-color);
+    transition: accent-color 0.3s ease;
+  }
+
+  label {
+    color: var(--text-color);
+    transition: color 0.3s ease;
   }
 }
 
@@ -132,6 +147,7 @@ textarea.form-control {
   margin-top: 40px;
   padding-top: 25px;
   border-top: 1px solid var(--border-color);
+  transition: border-color 0.3s ease;
 }
 
 /* Buttons */
@@ -141,12 +157,13 @@ textarea.form-control {
   font-weight: 500;
   font-size: 1rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
   border: none;
 
   &-primary {
     background-color: var(--primary-color);
     color: #ffffff;
+    transition: background-color 0.3s ease, color 0.3s ease, filter 0.3s ease;
 
     &:hover {
       filter: brightness(1.1);
@@ -157,6 +174,8 @@ textarea.form-control {
     background-color: var(--surface-color);
     color: var(--text-color);
     border: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, color 0.3s ease,
+      border-color 0.3s ease;
 
     &:hover {
       background-color: var(--light-color);
@@ -180,5 +199,18 @@ textarea.form-control {
 @media (max-width: 768px) {
   .content {
     padding: 20px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
   }
 }
